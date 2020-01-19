@@ -196,6 +196,7 @@ export default {
                     let newnode = {
                         title: dir, 
                         isLeaf: false, 
+                        isExpanded: false,
                         children: [], 
                         data: { 
                             type: "DIRECTORY",
