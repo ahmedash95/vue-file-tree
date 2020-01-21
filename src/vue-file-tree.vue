@@ -131,7 +131,6 @@ export default {
             this.$emit('nodeClick', event, node);
         },
         nodeDoubleClick(node, event) {
-            console.log(`nodeDoubleClick ${node.title} ${node.data.type} isLeaf ${node.isLeaf} ${util.inspect(node)}`);
             if (!node.isLeaf) {
                 this.$refs.slvuetree.onToggleHandler(event, node);
                 return;
@@ -139,17 +138,13 @@ export default {
             this.$emit('nodeDoubleClick', node);
         },
         nodeSelect(node) {
-            console.log(`nodeSelect ${util.inspect(node)}`);
         },
         nodeToggle(node) {
-            console.log(`nodeToggle ${util.inspect(node)}`);
         },
         nodeDrop(node) {
-            console.log(`nodeDrop ${util.inspect(node)}`);
             this.$emit('nodeDrop', node);
         },
         nodeContextMenu(node, event) {
-            console.log(`nodeContextMenu ${util.inspect(node)}`);
             this.contextMenuIsVisible = true;
             const $contextMenu = this.$refs.contextmenu;
             $contextMenu.style.left = event.clientX + 'px';
@@ -168,20 +163,13 @@ export default {
         // See: https://github.com/buefy/buefy/blob/dev/src/components/dropdown/Dropdown.vue
         isInWhiteList(el) { return false; },
         onExternalDropHandler(cursorPosition, event) {
-            console.log('external drop', cursorPosition, util.inspect(event));
         },
         addPathToTree(fn, stat, isDir) {
-            console.log(`addPathToTree ${fn} ${util.inspect(stat)} ${isDir}`);
-            console.log(`addPathToTree ${util.inspect(process)}`);
-            console.log(util.inspect(path));
             fn = path.normalize(fn);
-            console.log(`addPathToTree NORMALIZED ${fn}`);
             const basenm = path.basename(fn);
-            console.log(`addPathToTree BASENAME ${basenm}`);
 
             const split = splitter(fn);
 
-            console.log(`addPathToTree dirs ${util.inspect(split)}`);
             let curnodes = this.nodes;
             for (let dir of split.dirs) {
                 if (dir === '.') continue;
@@ -204,7 +192,6 @@ export default {
                             stat 
                         }
                     };
-                    console.log(`addPathToTree !found push newnode ${util.inspect(newnode)}`);
                     curnodes.push(newnode);
                     curnodes = newnode.children;
                 } else {
@@ -225,7 +212,6 @@ export default {
             if (fn.endsWith('.ejs')) newnode.data.type = "EJS";
             if (fn.endsWith('.vue')) newnode.data.type = "VUEJS";
             if (!newnode.isLeaf) newnode.children = [];
-            console.log(`addPathToTree FINAL push newnode ${util.inspect(newnode)}`);
             curnodes.push(newnode);
         }
     }
